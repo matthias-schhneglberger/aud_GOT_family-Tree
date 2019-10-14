@@ -22,15 +22,20 @@ public class Main {
     }
     
     public boolean isParent(Person parent, Person child){
-        return true;
+        if((child.getMom().equals(child) || child.getDad().equals(child))&& parent.getChildren.contains(child)){
+            return true;
+        }
+        return false;
     }
     
     public boolean isFemale(Person person){
-        return true;
+        return !person.getMale();
     }
     
     public boolean isGrandparent(Person grandparent, Person grandchild){
-        return true;
+        List<Person> grandParents = getAllGrandmas(grandchild);
+        //grandParents.stream().
+        return false;
     }
     
     public List<Person> getAllGrandparents(Person grandchild){
