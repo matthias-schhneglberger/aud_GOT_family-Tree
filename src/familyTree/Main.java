@@ -29,23 +29,27 @@ public class Main {
         return true;
     }
     
-    public boolean is Grandparent(Person grandparent, Person grandchild){
+    public boolean isGrandparent(Person grandparent, Person grandchild){
         return true;
     }
     
     public List<Person> getAllGrandparents(Person grandchild){
+        return null;
         
     }
     
     public List<Person> getAllGrandchildren(Person grandparent){
+        return null;
         
     }
     
     public Map<Person, List<Person>> getAllSiblings(Person root){
+        return null;
         
     }
     
     public List<Person> getAllGrandmas(Person root){
+        return null;
         
     }
     
