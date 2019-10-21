@@ -7,6 +7,7 @@ package familyTree;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -22,7 +23,7 @@ public class Main {
     }
     
     public boolean isParent(Person parent, Person child){
-        if((child.getMom().equals(child) || child.getDad().equals(child))&& parent.getChildren.contains(child)){
+        if((child.getMom().equals(child) || child.getDad().equals(child))&& parent.getChildren().contains(child)){
             return true;
         }
         return false;
@@ -34,13 +35,11 @@ public class Main {
     
     public boolean isGrandparent(Person grandparent, Person grandchild){
         List<Person> grandParents = getAllGrandmas(grandchild);
-        //grandParents.stream().
-        return false;
+        return grandParents.contains(grandParents);
     }
     
     public List<Person> getAllGrandparents(Person grandchild){
-        return null;
-        
+        return List<Person> list = grandchild.getParents().stream().getParents().collect(Collectors.toList());
     }
     
     public List<Person> getAllGrandchildren(Person grandparent){
