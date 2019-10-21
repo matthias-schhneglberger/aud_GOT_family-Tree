@@ -5,6 +5,7 @@
  */
 package familyTree;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -62,6 +63,20 @@ public class Person {
     public void setChildren(List<Person> children) {
         this.children = children;
     }
+    
+
+    
+    public boolean getMale(){
+        return male;
+    }
+    
+    public List<Person> getParents(){
+        List<Person> parents = new ArrayList<Person>();
+        parents.add(mom);
+        parents.add(dad);
+        return parents;
+    }
+    
 
     @Override
     public int hashCode() {
