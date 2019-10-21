@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  *
- * @author Fredi
+ * @author Matthias
  */
 public class Person {
     private boolean male;
