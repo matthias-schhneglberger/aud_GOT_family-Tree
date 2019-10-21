@@ -44,7 +44,6 @@ public class Main {
     
     public List<Person> getAllGrandchildren(Person grandparent){
         return null;
-        
     }
     
     public Map<Person, List<Person>> getAllSiblings(Person root){
@@ -53,7 +52,7 @@ public class Main {
     }
     
     public List<Person> getAllGrandmas(Person root){
-        return null;
+        return getAllGrandparents(root).stream().filter(a-> !a.getMale()).collect(Collectors.toList());
         
     }
     
