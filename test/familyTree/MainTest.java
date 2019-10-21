@@ -5,6 +5,7 @@
  */
 package familyTree;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.junit.After;
@@ -40,31 +41,21 @@ public class MainTest {
     }
 
     /**
-     * Test of main method, of class Main.
-     */
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        Main.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of isParent method, of class Main.
      */
     @Test
     public void testIsParent() {
         System.out.println("isParent");
-        Person parent = null;
-        Person child = null;
+        Person parent;
+        Person child = new Person(true, null,null, null);
+        List<Person> kind = new ArrayList<>();
+        kind.add(child);
+        parent = new Person(true, null, null,kind);
+        child.setDad(parent);
         Main instance = new Main();
-        boolean expResult = false;
-        boolean result = instance.isParent(parent, child);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        List<Person> testParent = new ArrayList<>();
+        testParent.add(child);
+        assertTrue(instance.isParent(parent, child));
     }
 
     /**
@@ -73,13 +64,9 @@ public class MainTest {
     @Test
     public void testIsFemale() {
         System.out.println("isFemale");
-        Person person = null;
+        Person person = new Person(false, null,null, null);
         Main instance = new Main();
-        boolean expResult = false;
-        boolean result = instance.isFemale(person);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(instance.isFemale(person));
     }
 
     /**

@@ -39,7 +39,9 @@ public class Main {
     }
     
     public List<Person> getAllGrandparents(Person grandchild){
-        return List<Person> list = grandchild.getParents().stream().getParents().collect(Collectors.toList());
+        return null;
+//        return List<Person> list = grandchild.getParents().stream().getParents().collect(Collectors.toList());
+
     }
     
     public List<Person> getAllGrandchildren(Person grandparent){
