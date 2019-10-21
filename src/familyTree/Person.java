@@ -32,10 +32,6 @@ public class Person {
         this.children = children;
     }
 
-    public boolean isMale() {
-        return male;
-    }
-
     public void setMale(boolean male) {
         this.male = male;
     }
