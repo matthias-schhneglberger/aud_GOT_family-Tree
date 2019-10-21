@@ -5,6 +5,7 @@
  */
 package familyTree;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -46,8 +47,8 @@ public class Main {
     }
     
     public Map<Person, List<Person>> getAllSiblings(Person root){
-        return null;
-        
+        Map<Person, List<Person>> map = new HashMap<>();
+        return null;       
     }
     
     public List<Person> getAllGrandmas(Person root){//fertig
