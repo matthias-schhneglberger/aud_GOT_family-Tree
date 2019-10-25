@@ -5,6 +5,8 @@
  */
 package familyTree;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -13,46 +15,65 @@ import java.util.stream.Collectors;
  *
  * @author matth
  */
+
+
 public class Main {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-    }
-    
-    public boolean isParent(Person parent, Person child){//fertig
-        return child.getParents().contains(parent);
-    }
-    
-    public boolean isFemale(Person person){//fertig
-        return !person.getMale();
-    }
-    
-    public boolean isGrandparent(Person grandparent, Person grandchild){//fertig
-        List<Person> grandParents = getAllGrandmas(grandchild);
-        return grandParents.contains(grandParents);
-    }
-    
-    public List<Person> getAllGrandparents(Person grandchild){
-        return null;
-//        return List<Person> list = grandchild.getParents().stream().getParents().collect(Collectors.toList());
 
     }
     
-    public List<Person> getAllGrandchildren(Person grandparent){
+//unUsed
+//    public boolean isParent(Person parent, Person child) {
+//        if ((child.getMom().equals(child) || child.getDad().equals(child)) && parent.getChildren().contains(child)) {
+//            return true;
+//        }
+//        return false;
+//    }
+
+    public boolean isFemale(Person person) {//fertig
+        return !person.getMale();
+    }
+
+    public boolean isParent(Person parent, Person child) {//fertig
+        return child.getParents().contains(parent);
+    }
+
+
+
+    public boolean isGrandparent(Person grandparent, Person grandchild) {//fertig
+        List<Person> grandParents = getAllGrandparents(grandchild);
+        return grandParents.contains(grandParents);
+    }
+
+    public List<Person> getAllGrandparents(Person grandchild) {
+        List<Person> toReturn = new ArrayList<>();
+        toReturn.add(grandchild.getDad().getDad());
+        toReturn.add(grandchild.getDad().getMom());
+        toReturn.add(grandchild.getMom().getDad());
+        toReturn.add(grandchild.getMom().getMom());
+        toReturn.stream().filter(p -> p == null);
+        return toReturn;
+
+    }
+
+    public List<Person> getAllGrandchildren(Person grandparent) {
+        List<Person> toReturn = new ArrayList<>();
+        grandparent.getChildren().stream().map(l -> l.getChildren().stream().map(p -> toReturn.add(p)));
+        return toReturn;
+
+    }
+
+    public Map<Person, List<Person>> getAllSiblings(Person root) {
         return null;
     }
-    
-    public Map<Person, List<Person>> getAllSiblings(Person root){
-        return null;
-        
+
+    public List<Person> getAllGrandmas(Person root) {
+        return getAllGrandparents(root).stream().filter(a -> !a.getMale()).collect(Collectors.toList());
     }
-    
-    public List<Person> getAllGrandmas(Person root){//fertig
-        return getAllGrandparents(root).stream().filter(a-> !a.getMale()).collect(Collectors.toList());
-        
-    }
-    
+
+
 }
