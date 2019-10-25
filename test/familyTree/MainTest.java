@@ -129,7 +129,7 @@ public class MainTest {
         child.setDad(parent);
         child1.setDad(parent);
         child2.setMom(parent1);
-        child2.setMom(parent1);
+        child3.setMom(parent1);
         
         Main instance = new Main();
         List<Person> expResult = new ArrayList<>();

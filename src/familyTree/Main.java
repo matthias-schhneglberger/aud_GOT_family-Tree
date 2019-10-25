@@ -6,6 +6,7 @@
 package familyTree;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -48,16 +49,18 @@ public class Main {
 
     public boolean isGrandparent(Person grandparent, Person grandchild) {//fertig
         List<Person> grandParents = getAllGrandparents(grandchild);
-        return grandParents.contains(grandchild);
+        return grandParents.contains(grandparent);
     }
 
     public List<Person> getAllGrandparents(Person grandchild) {
         List<Person> toReturn = new ArrayList<>();
-        toReturn.add(grandchild.getDad().getDad());
-        toReturn.add(grandchild.getDad().getMom());
-        toReturn.add(grandchild.getMom().getDad());
-        toReturn.add(grandchild.getMom().getMom());
-        toReturn.stream().filter(p -> p == null);
+        List<Person> parents = Arrays.asList(grandchild.getDad(), grandchild.getMom());
+        parents = parents.stream().filter(a -> a != null).collect(Collectors.toList());
+        for (Person parent : parents) {
+            toReturn.add(parent.getDad());
+            toReturn.add(parent.getMom());
+        }
+        toReturn = toReturn.stream().filter(p -> p != null).collect(Collectors.toList());
         return toReturn;
 
     }
@@ -68,6 +71,7 @@ public class Main {
         for (Person person : children) {
             toReturn.addAll(person.getChildren());
         }
+        toReturn = toReturn.stream().distinct().collect(Collectors.toList());
         return toReturn;
 
     }

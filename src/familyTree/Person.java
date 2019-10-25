@@ -90,16 +90,15 @@ public class Person {
         parents.add(dad);
         return parents;
     }
-    
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 97 * hash + (this.male ? 1 : 0);
-        hash = 97 * hash + Objects.hashCode(this.dad);
-        hash = 97 * hash + Objects.hashCode(this.mom);
-        hash = 97 * hash + Objects.hashCode(this.children);
-        hash = 97 * hash + Objects.hashCode(this.name);
+        hash = 59 * hash + (this.male ? 1 : 0);
+        hash = 59 * hash + Objects.hashCode(this.dad);
+        hash = 59 * hash + Objects.hashCode(this.mom);
+        hash = 59 * hash + Objects.hashCode(this.children);
+        hash = 59 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -118,6 +117,9 @@ public class Person {
         if (this.male != other.male) {
             return false;
         }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
         if (!Objects.equals(this.dad, other.dad)) {
             return false;
         }
@@ -127,11 +129,11 @@ public class Person {
         if (!Objects.equals(this.children, other.children)) {
             return false;
         }
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
         return true;
     }
+    
+
+    
     
     
     
