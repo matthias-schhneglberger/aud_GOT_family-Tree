@@ -6,6 +6,8 @@
 package familyTree;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.After;
@@ -47,10 +49,10 @@ public class MainTest {
     public void testIsParent() {
         System.out.println("isParent");
         Person parent = null;
-        Person child = new Person(true, parent,null, null);
+        Person child = new Person(true, parent,null, null,"a");
         List<Person> kind = new ArrayList<>();
         kind.add(child);
-        parent = new Person(true, null, null,kind);
+        parent = new Person(true, null, null,kind,"ab");
         child.setDad(parent);
         Main instance = new Main();
         assertTrue(instance.isParent(parent, child));
@@ -62,7 +64,7 @@ public class MainTest {
     @Test
     public void testIsFemale() {
         System.out.println("isFemale");
-        Person person = new Person(false, null,null, null);
+        Person person = new Person(false, null,null, null,"a");
         Main instance = new Main();
         assertTrue(instance.isFemale(person));
     }
@@ -73,11 +75,13 @@ public class MainTest {
     @Test
     public void testIsGrandparent() {
         System.out.println("isGrandparent");
-        Person grandparent = null;
-        Person parent;
-        Person grandchild = new Person(true, null,null, null);
+        Person grandparent = new Person(true, null, null,null,"a");
+        Person parent = new Person(true, null, null, null,"ab");
+        Person child = new Person(true, null,null, null,"af");
+        child.setDad(parent);
+        parent.setDad(grandparent);
         Main instance = new Main();
-//        assertEquals(expResult, result);
+        assertTrue(instance.isGrandparent(grandparent, child));
     }
 
     /**
@@ -86,13 +90,25 @@ public class MainTest {
     @Test
     public void testGetAllGrandparents() {
         System.out.println("getAllGrandparents");
-        Person grandchild = null;
+        Person grandparent = new Person(true, null, null,null,"a");
+        Person grandparent1 = new Person(false, null, null,null,"ad");
+        Person grandparent2 = new Person(true, null, null,null,"ade");
+        Person grandparent3 = new Person(false, null, null,null,"ae");
+        Person parent = new Person(true, null, null, null,"adse");
+        Person parent1 = new Person(false, null, null, null,"aasd");
+        Person child = new Person(true, null,null, null,"akhg");
+        child.setDad(parent);
+        child.setMom(parent1);
+        parent.setDad(grandparent);
+        parent.setMom(grandparent1);
+        parent1.setDad(grandparent2);
+        parent1.setMom(grandparent3);
+        
         Main instance = new Main();
-        List<Person> expResult = null;
-        List<Person> result = instance.getAllGrandparents(grandchild);
+        List<Person> expResult = new ArrayList<>();
+        expResult.add(grandparent);expResult.add(grandparent1);expResult.add(grandparent2);expResult.add(grandparent3);
+        List<Person> result = instance.getAllGrandparents(child);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -101,13 +117,25 @@ public class MainTest {
     @Test
     public void testGetAllGrandchildren() {
         System.out.println("getAllGrandchildren");
-        Person grandparent = null;
+        Person grandparent = new Person(true, null, null,null,"a");
+        Person parent = new Person(true, null, null, null,"aasd");
+        Person parent1 = new Person(false, null, null, null,"ajjjjjjjgh");
+        Person child = new Person(true, null,null, null,"dsf");
+        Person child1 = new Person(false, null,null, null,"aers");
+        Person child2 = new Person(true, null,null, null,"akjhg");
+        Person child3 = new Person(false, null,null, null,"aasdfse");
+        parent.setDad(grandparent);
+        parent1.setDad(grandparent);
+        child.setDad(parent);
+        child1.setDad(parent);
+        child2.setMom(parent1);
+        child2.setMom(parent1);
+        
         Main instance = new Main();
-        List<Person> expResult = null;
+        List<Person> expResult = new ArrayList<>();
+        expResult.add(child);expResult.add(child1);expResult.add(child2);expResult.add(child3);
         List<Person> result = instance.getAllGrandchildren(grandparent);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -116,13 +144,38 @@ public class MainTest {
     @Test
     public void testGetAllSiblings() {
         System.out.println("getAllSiblings");
-        Person root = null;
+        Person grandparentm = new Person(true, null, null,null,"aadf");
+        Person grandparentw = new Person(false, null, null,null,"acxv");
+        Person parentm = new Person(true, null, null, null,"autuj");
+        Person parent1m = new Person(true, null, null, null,"erea");
+        Person parent1w = new Person(false, null, null, null,"azuj");
+        Person childm1 = new Person(true, null,null, null,"adsfe");
+        Person childm2 = new Person(true, null,null, null,"ajhg");
+        Person child11 = new Person(false, null,null, null,"azhgv");
+        Person child21 = new Person(true, null,null, null,"adsfe");
+        Person child31 = new Person(false, null,null, null,"dsdf");
+        parentm.setDad(grandparentm);
+        parentm.setMom(grandparentw);
+        parent1m.setDad(grandparentm);
+        parent1m.setMom(grandparentw);
+        parent1w.setDad(grandparentm);
+        parent1w.setMom(grandparentw);
+        childm1.setDad(parentm);
+        childm2.setDad(parentm);
+        child11.setDad(parent1m);
+        child21.setDad(parent1m);
+        child31.setMom(parent1w);
         Main instance = new Main();
-        Map<Person, List<Person>> expResult = null;
-        Map<Person, List<Person>> result = instance.getAllSiblings(root);
+        Map<Person, List<Person>> expResult = new HashMap<>();
+        expResult.put(parent1m, Arrays.asList(parent1w, parentm));
+        expResult.put(parent1w, Arrays.asList(parent1m, parentm));
+        expResult.put(parentm, Arrays.asList(parent1w, parent1m));
+        expResult.put(childm1, Arrays.asList(childm2));
+        expResult.put(childm2, Arrays.asList(childm1));
+        expResult.put(child11, Arrays.asList(child21));
+        expResult.put(child21, Arrays.asList(child11));
+        Map<Person, List<Person>> result = instance.getAllSiblings(grandparentm);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -131,13 +184,25 @@ public class MainTest {
     @Test
     public void testGetAllGrandmas() {
         System.out.println("getAllGrandmas");
-        Person root = null;
+        Person grandparent = new Person(true, null, null,null,"asd");
+        Person grandparent1 = new Person(false, null, null,null,"ajmf");
+        Person grandparent2 = new Person(true, null, null,null,"agfhcv");
+        Person grandparent3 = new Person(false, null, null,null,"adfdnhfg");
+        Person parent = new Person(true, null, null, null,"ajnh ");
+        Person parent1 = new Person(false, null, null, null,"adsafe");
+        Person child = new Person(true, null,null, null,"amjh");
+        child.setDad(parent);
+        child.setMom(parent1);
+        parent.setDad(grandparent);
+        parent.setMom(grandparent1);
+        parent1.setDad(grandparent2);
+        parent1.setMom(grandparent3);
+        
         Main instance = new Main();
-        List<Person> expResult = null;
-        List<Person> result = instance.getAllGrandmas(root);
+        List<Person> expResult = new ArrayList<>();
+        expResult.add(grandparent1);expResult.add(grandparent3);
+        List<Person> result = instance.getAllGrandmas(child);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
