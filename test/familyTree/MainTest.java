@@ -46,15 +46,13 @@ public class MainTest {
     @Test
     public void testIsParent() {
         System.out.println("isParent");
-        Person parent;
-        Person child = new Person(true, null,null, null);
+        Person parent = null;
+        Person child = new Person(true, parent,null, null);
         List<Person> kind = new ArrayList<>();
         kind.add(child);
         parent = new Person(true, null, null,kind);
         child.setDad(parent);
         Main instance = new Main();
-        List<Person> testParent = new ArrayList<>();
-        testParent.add(child);
         assertTrue(instance.isParent(parent, child));
     }
 
@@ -76,13 +74,10 @@ public class MainTest {
     public void testIsGrandparent() {
         System.out.println("isGrandparent");
         Person grandparent = null;
-        Person grandchild = null;
+        Person parent;
+        Person grandchild = new Person(true, null,null, null);
         Main instance = new Main();
-        boolean expResult = false;
-        boolean result = instance.isGrandparent(grandparent, grandchild);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+//        assertEquals(expResult, result);
     }
 
     /**
