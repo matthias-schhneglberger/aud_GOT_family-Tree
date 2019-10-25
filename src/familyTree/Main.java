@@ -25,7 +25,8 @@ public class Main {
     public static void main(String[] args) {
 
     }
-
+    
+//unUsed
 //    public boolean isParent(Person parent, Person child) {
 //        if ((child.getMom().equals(child) || child.getDad().equals(child)) && parent.getChildren().contains(child)) {
 //            return true;
@@ -33,7 +34,7 @@ public class Main {
 //        return false;
 //    }
 
-    public boolean isFemale(Person person) {
+    public boolean isFemale(Person person) {//fertig
         return !person.getMale();
     }
 
@@ -44,8 +45,8 @@ public class Main {
 
 
     public boolean isGrandparent(Person grandparent, Person grandchild) {//fertig
-        List<Person> grandParents = getAllGrandmas(grandchild);
-        return grandParents.contains(grandParents);
+        List<Person> grandParents = getAllGrandparents(grandchild);
+        return grandParents.contains(grandchild);
     }
 
     public List<Person> getAllGrandparents(Person grandchild) {
@@ -68,7 +69,6 @@ public class Main {
 
     public Map<Person, List<Person>> getAllSiblings(Person root) {
         return null;
-
     }
 
     public List<Person> getAllGrandmas(Person root) {
