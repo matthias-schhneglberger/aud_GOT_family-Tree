@@ -13,6 +13,8 @@ import java.util.Objects;
  *
  * @author Matthias
  */
+
+//wurde grundsätzlich vom Mathias gemacht, allerdings habe ich (Frederic) ein paar Bugs gefixed
 public class Person {
     private boolean male;
     private Person dad;
@@ -86,8 +88,12 @@ public class Person {
     
     public List<Person> getParents(){
         List<Person> parents = new ArrayList<Person>();
+        if(mom != null){
         parents.add(mom);
+        }
+        if(dad != null){
         parents.add(dad);
+        }
         return parents;
     }
 
@@ -97,7 +103,7 @@ public class Person {
         hash = 59 * hash + (this.male ? 1 : 0);
         hash = 59 * hash + Objects.hashCode(this.dad);
         hash = 59 * hash + Objects.hashCode(this.mom);
-        hash = 59 * hash + Objects.hashCode(this.children);
+        //hash = 59 * hash + Objects.hashCode(this.children);
         hash = 59 * hash + Objects.hashCode(this.name);
         return hash;
     }

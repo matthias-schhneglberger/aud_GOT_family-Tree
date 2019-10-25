@@ -20,6 +20,9 @@ import java.util.stream.Collectors;
  * @author matth
  */
 public class Main {
+//wurde grundsätzlich vom Emil gemacht, allerdings habe ich (Frederic) ein paar Bugs gefixed
+// um es ein wenig verständlicher zu machen, jeder hatte seine Klasse Person= Matthias, Test = Fabi, Main = Emil
+//Am Ende habe ich (Fredi) eine Haufen Bugs in allen Klassen gefixed bzw. 2 Mathoden geschrieben(getAllSiblings, getAllGrandparents) sodass wir alle ca gleich viel gemacht haben
 
     /**
      * @param args the command line arguments
@@ -112,7 +115,6 @@ public class Main {
         for (Person person : children) {
             toReturn.addAll(person.getChildren());
         }
-        toReturn = toReturn.stream().distinct().collect(Collectors.toList());
         return toReturn;
 
     }
@@ -120,7 +122,7 @@ public class Main {
     private List<Person> getAllChildren(List<Person> parents){
         List<Person> toReturn = new ArrayList<>();
         for (Person person : parents) {
-            parents.addAll(person.getChildren());
+            toReturn.addAll(person.getChildren());
         }
         return toReturn;
     }
@@ -132,9 +134,14 @@ public class Main {
         eineGeneration = getAllChildren(eineGeneration);
         while(eineGeneration.size() != 0){
             for (Person person : eineGeneration) {
-                List<Person> siblingsOfPerson = new ArrayList<>(eineGeneration.size());
-                Collections.copy(eineGeneration, siblingsOfPerson);
+                List<Person> siblingsOfPerson = new ArrayList<>(eineGeneration);
                 siblingsOfPerson.remove(person);
+                for (Person person1 : eineGeneration) {
+                    List<Person> parents = person.getParents();
+                    if(parents != null&&!parents.stream().anyMatch(a -> a.getChildren().contains(person1))){
+                       siblingsOfPerson.remove(person1);
+                    }
+                }
                 siblings.put(person, siblingsOfPerson);
             }
             eineGeneration = getAllChildren(eineGeneration);

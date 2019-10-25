@@ -21,6 +21,7 @@ import static org.junit.Assert.*;
  *
  * @author fabia
  */
+//wurde Fabian vom Mathias gemacht, allerdings habe ich (Frederic) ein paar Bugs gefixed
 public class MainTest {
 
     public MainTest() {
@@ -101,7 +102,7 @@ public class MainTest {
         child.setDad(parent);
         parent.setDad(grandparent);
         Main instance = new Main();
-        assertFalse(instance.isGrandparent(grandparent, child));
+        assertFalse(instance.isGrandparent(grandparent, parent));
     }
 
     /**
@@ -152,13 +153,7 @@ public class MainTest {
         child.setDad(parent);
         child1.setDad(parent);
         child2.setMom(parent1);
-<<<<<<< HEAD
         child3.setMom(parent1);
-        
-=======
-        child2.setMom(parent1);
-
->>>>>>> c9a423d8ef29d684f814c1fd172ee6c05936908e
         Main instance = new Main();
         List<Person> expResult = new ArrayList<>();
         expResult.add(child);
@@ -175,6 +170,7 @@ public class MainTest {
     @Test
     public void testGetAllSiblings() {
         System.out.println("getAllSiblings");
+        Person root = new Person(true, null, null, null,"root");
         Person grandparentm = new Person(true, null, null, null, "aadf");
         Person grandparentw = new Person(false, null, null, null, "acxv");
         Person parentm = new Person(true, null, null, null, "autuj");
@@ -185,6 +181,8 @@ public class MainTest {
         Person child11 = new Person(false, null, null, null, "azhgv");
         Person child21 = new Person(true, null, null, null, "adsfe");
         Person child31 = new Person(false, null, null, null, "dsdf");
+        grandparentm.setDad(root);
+        grandparentw.setDad(root);
         parentm.setDad(grandparentm);
         parentm.setMom(grandparentw);
         parent1m.setDad(grandparentm);
@@ -205,8 +203,20 @@ public class MainTest {
         expResult.put(childm2, Arrays.asList(childm1));
         expResult.put(child11, Arrays.asList(child21));
         expResult.put(child21, Arrays.asList(child11));
+        expResult.put(child31, new ArrayList<>());
         Map<Person, List<Person>> result = instance.getAllSiblings(grandparentm);
-        assertEquals(expResult, result);
+        List<Person> listOfPerson = Arrays.asList(parent1m,parent1w,parentm,child11,child21,child31,childm1,childm2);
+        for (Person person : listOfPerson) {
+            List<Person> exp = expResult.get(person);
+            List<Person> res = result.get(person);
+            
+            exp.sort((a,b) -> a.hashCode()-b.hashCode());
+            res.sort((a,b) -> a.hashCode()-b.hashCode());
+            
+            for(int i = 0; i < exp.size(); i++){
+                assertEquals(exp.get(i), res.get(i));
+            }
+        }
     }
 
     /**
