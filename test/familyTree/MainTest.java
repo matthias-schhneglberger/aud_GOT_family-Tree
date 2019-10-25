@@ -49,10 +49,10 @@ public class MainTest {
     public void testIsParent() {
         System.out.println("isParent");
         Person parent = null;
-        Person child = new Person(true, parent,null, null);
+        Person child = new Person(true, parent,null, null,"a");
         List<Person> kind = new ArrayList<>();
         kind.add(child);
-        parent = new Person(true, null, null,kind);
+        parent = new Person(true, null, null,kind,"ab");
         child.setDad(parent);
         Main instance = new Main();
         assertTrue(instance.isParent(parent, child));
@@ -64,7 +64,7 @@ public class MainTest {
     @Test
     public void testIsFemale() {
         System.out.println("isFemale");
-        Person person = new Person(false, null,null, null);
+        Person person = new Person(false, null,null, null,"a");
         Main instance = new Main();
         assertTrue(instance.isFemale(person));
     }
@@ -75,9 +75,9 @@ public class MainTest {
     @Test
     public void testIsGrandparent() {
         System.out.println("isGrandparent");
-        Person grandparent = new Person(true, null, null,null);
-        Person parent = new Person(true, null, null, null);
-        Person child = new Person(true, null,null, null);
+        Person grandparent = new Person(true, null, null,null,"a");
+        Person parent = new Person(true, null, null, null,"ab");
+        Person child = new Person(true, null,null, null,"af");
         child.setDad(parent);
         parent.setDad(grandparent);
         Main instance = new Main();
@@ -90,13 +90,13 @@ public class MainTest {
     @Test
     public void testGetAllGrandparents() {
         System.out.println("getAllGrandparents");
-        Person grandparent = new Person(true, null, null,null);
-        Person grandparent1 = new Person(false, null, null,null);
-        Person grandparent2 = new Person(true, null, null,null);
-        Person grandparent3 = new Person(false, null, null,null);
-        Person parent = new Person(true, null, null, null);
-        Person parent1 = new Person(false, null, null, null);
-        Person child = new Person(true, null,null, null);
+        Person grandparent = new Person(true, null, null,null,"a");
+        Person grandparent1 = new Person(false, null, null,null,"ad");
+        Person grandparent2 = new Person(true, null, null,null,"ade");
+        Person grandparent3 = new Person(false, null, null,null,"ae");
+        Person parent = new Person(true, null, null, null,"adse");
+        Person parent1 = new Person(false, null, null, null,"aasd");
+        Person child = new Person(true, null,null, null,"akhg");
         child.setDad(parent);
         child.setMom(parent1);
         parent.setDad(grandparent);
@@ -117,13 +117,13 @@ public class MainTest {
     @Test
     public void testGetAllGrandchildren() {
         System.out.println("getAllGrandchildren");
-        Person grandparent = new Person(true, null, null,null);
-        Person parent = new Person(true, null, null, null);
-        Person parent1 = new Person(false, null, null, null);
-        Person child = new Person(true, null,null, null);
-        Person child1 = new Person(false, null,null, null);
-        Person child2 = new Person(true, null,null, null);
-        Person child3 = new Person(false, null,null, null);
+        Person grandparent = new Person(true, null, null,null,"a");
+        Person parent = new Person(true, null, null, null,"aasd");
+        Person parent1 = new Person(false, null, null, null,"ajjjjjjjgh");
+        Person child = new Person(true, null,null, null,"dsf");
+        Person child1 = new Person(false, null,null, null,"aers");
+        Person child2 = new Person(true, null,null, null,"akjhg");
+        Person child3 = new Person(false, null,null, null,"aasdfse");
         parent.setDad(grandparent);
         parent1.setDad(grandparent);
         child.setDad(parent);
@@ -134,7 +134,7 @@ public class MainTest {
         Main instance = new Main();
         List<Person> expResult = new ArrayList<>();
         expResult.add(child);expResult.add(child1);expResult.add(child2);expResult.add(child3);
-        List<Person> result = instance.getAllGrandchildren(child);
+        List<Person> result = instance.getAllGrandchildren(grandparent);
         assertEquals(expResult, result);
     }
 
@@ -144,16 +144,16 @@ public class MainTest {
     @Test
     public void testGetAllSiblings() {
         System.out.println("getAllSiblings");
-        Person grandparentm = new Person(true, null, null,null);
-        Person grandparentw = new Person(false, null, null,null);
-        Person parentm = new Person(true, null, null, null);
-        Person parent1m = new Person(true, null, null, null);
-        Person parent1w = new Person(false, null, null, null);
-        Person childm1 = new Person(true, null,null, null);
-        Person childm2 = new Person(true, null,null, null);
-        Person child11 = new Person(false, null,null, null);
-        Person child21 = new Person(true, null,null, null);
-        Person child31 = new Person(false, null,null, null);
+        Person grandparentm = new Person(true, null, null,null,"aadf");
+        Person grandparentw = new Person(false, null, null,null,"acxv");
+        Person parentm = new Person(true, null, null, null,"autuj");
+        Person parent1m = new Person(true, null, null, null,"erea");
+        Person parent1w = new Person(false, null, null, null,"azuj");
+        Person childm1 = new Person(true, null,null, null,"adsfe");
+        Person childm2 = new Person(true, null,null, null,"ajhg");
+        Person child11 = new Person(false, null,null, null,"azhgv");
+        Person child21 = new Person(true, null,null, null,"adsfe");
+        Person child31 = new Person(false, null,null, null,"dsdf");
         parentm.setDad(grandparentm);
         parentm.setMom(grandparentw);
         parent1m.setDad(grandparentm);
@@ -184,13 +184,13 @@ public class MainTest {
     @Test
     public void testGetAllGrandmas() {
         System.out.println("getAllGrandmas");
-        Person grandparent = new Person(true, null, null,null);
-        Person grandparent1 = new Person(false, null, null,null);
-        Person grandparent2 = new Person(true, null, null,null);
-        Person grandparent3 = new Person(false, null, null,null);
-        Person parent = new Person(true, null, null, null);
-        Person parent1 = new Person(false, null, null, null);
-        Person child = new Person(true, null,null, null);
+        Person grandparent = new Person(true, null, null,null,"asd");
+        Person grandparent1 = new Person(false, null, null,null,"ajmf");
+        Person grandparent2 = new Person(true, null, null,null,"agfhcv");
+        Person grandparent3 = new Person(false, null, null,null,"adfdnhfg");
+        Person parent = new Person(true, null, null, null,"ajnh ");
+        Person parent1 = new Person(false, null, null, null,"adsafe");
+        Person child = new Person(true, null,null, null,"amjh");
         child.setDad(parent);
         child.setMom(parent1);
         parent.setDad(grandparent);

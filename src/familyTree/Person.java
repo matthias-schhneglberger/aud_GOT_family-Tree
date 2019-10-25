@@ -18,18 +18,34 @@ public class Person {
     private Person dad;
     private Person mom;
     private List<Person> children;
-
-    public Person(boolean male, Person dad, Person mom, List<Person> children) {
+    private String name;
+    
+    public Person(boolean male, Person dad, Person mom, List<Person> children,String name) {
         this.male = male;
         this.dad = dad;
         this.mom = mom;
         this.children = children;
+        this.name = name;
+        if(this.children == null){
+            this.children = new ArrayList<>();
+        }
     }
 
     public Person(boolean male, Person dad, List<Person> children) {
         this.male = male;
         this.dad = dad;
         this.children = children;
+        if(this.children == null){
+            this.children = new ArrayList<>();
+        }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setMale(boolean male) {
@@ -42,6 +58,7 @@ public class Person {
 
     public void setDad(Person dad) {
         this.dad = dad;
+        dad.children.add(this);
     }
 
     public Person getMom() {
@@ -50,6 +67,7 @@ public class Person {
 
     public void setMom(Person mom) {
         this.mom = mom;
+        mom.children.add(this);
     }
 
     public List<Person> getChildren() {
@@ -81,6 +99,7 @@ public class Person {
         hash = 97 * hash + Objects.hashCode(this.dad);
         hash = 97 * hash + Objects.hashCode(this.mom);
         hash = 97 * hash + Objects.hashCode(this.children);
+        hash = 97 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -106,6 +125,9 @@ public class Person {
             return false;
         }
         if (!Objects.equals(this.children, other.children)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         return true;
