@@ -46,7 +46,7 @@ public class Main {
 
     public boolean isGrandparent(Person grandparent, Person grandchild) {//fertig
         List<Person> grandParents = getAllGrandparents(grandchild);
-        return grandParents.contains(grandParents);
+        return grandParents.contains(grandchild);
     }
 
     public List<Person> getAllGrandparents(Person grandchild) {
